@@ -9,45 +9,35 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 
-/** æ­¤å¤„ä¸ºä¸»è¦å…¥å£ **/
+/** ´Ë´¦ÎªÖ÷ÒªÈë¿ÚµÄµØ·½ **/
 
-/* ä½¿ç”¨@Modå£°æ˜è¿™æ˜¯ä¸€ä¸ªèŒèŒçš„MOD */
+/* Ê¹ÓÃ@ModÉùÃ÷ÕâÊÇÒ»¸öÃÈÃÈµÄMOD */
 @Mod(modid = "JiuZhouTutorial", name = "JiuZhou Tutorial", version = "quq")
 public class JiuzhouTutorial {
-	// è¿™ä¸ªæˆ‘ä¹Ÿä¸çŸ¥é“æœ‰å•¥ç”¨,åº”è¯¥æ˜¯ä»£ç†æœåŠ¡å™¨ä¹‹é—´ä¼ è¾“æ•°æ®å•¥çš„,æŒºé‡è¦,ä½†æ˜¯ä¸éœ€è¦è¯¦ç»†äº†è§£
+	// Õâ¸öÎÒÒ²²»ÖªµÀÓĞÉ¶ÓÃ,Ó¦¸ÃÊÇ´úÀí·şÎñÆ÷Ö®¼ä´«ÊäÊı¾İÉ¶µÄ,Í¦ÖØÒª,µ«ÊÇ²»ĞèÒªÏêÏ¸ÁË½â
 	@SidedProxy(clientSide = "inc.jiuzhou.tutorial.ClientProxy", serverSide = "inc.jiuzhou.tutorial.CommonProxy")
-	public static CommonProxy ä»£ç†;
+	public static CommonProxy ´úÀí;
 	@Mod.Instance
-	// åˆ›å»ºä¸€ä¸ªMODå®ä¾‹
-	public static JiuzhouTutorial å®ä¾‹;
+	// ´´½¨Ò»¸öMODÊµÀı
+	public static JiuzhouTutorial ÊµÀı;
 
-	/* æœ€å…ˆæ‰§è¡Œçš„åœ°æ–¹ */
+	/* ×îÏÈÖ´ĞĞµÄµØ·½ */
 	@Mod.EventHandler
-<<<<<<< HEAD
 	public void preLoad(FMLPreInitializationEvent ÊÂ¼ş) {
 		/* ½øĞĞ·½¿éµÄ³õÊ¼»¯ */
-=======
-	public void preLoad(FMLPreInitializationEvent äº‹ä»¶) {
-		/*è¿›è¡Œæ–¹å—çš„åˆå§‹åŒ–*/
->>>>>>> origin/master
 		JiuZhouTutorialBlocks.init();
 	}
 
-	/* ä¹‹åæ‰§è¡Œçš„åœ°æ–¹ */
+	/* Ö®ºóÖ´ĞĞµÄµØ·½ */
 	@Mod.EventHandler
-<<<<<<< HEAD
 	public void load(FMLInitializationEvent ÊÂ¼ş) {
 		/* ÕâÀï×¢²áGUI,Ò»¶¨²»Òª·ÅÔÚ×îÏÈÖ´ĞĞµÄµØ·½,ÒòÎªÏÈ¼ÓÔØÁË¶«Î÷²ÅÄÜ¼ÓÔØÊÓÍ¼ÊÇ°É! */
 		NetworkRegistry.INSTANCE.registerGuiHandler(ÊµÀı, new GuiHandler());
-=======
-	public void load(FMLInitializationEvent äº‹ä»¶) {
-
->>>>>>> origin/master
 	}
 
-	/* æœ€åæ‰§è¡Œçš„åœ°æ–¹ */
+	/* ×îºóÖ´ĞĞµÄµØ·½ */
 	@Mod.EventHandler
-	public void PostLoad(FMLPostInitializationEvent äº‹ä»¶) {
+	public void PostLoad(FMLPostInitializationEvent ÊÂ¼ş) {
 
 	}
 
