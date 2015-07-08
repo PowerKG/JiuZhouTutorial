@@ -1,5 +1,6 @@
 package inc.jiuzhou.tutorial;
 
+import inc.jiuzhou.tutorial.Gui.GuiHandler;
 import inc.jiuzhou.tutorial.blocks.JiuZhouTutorialBlocks;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
@@ -23,14 +24,15 @@ public class JiuzhouTutorial {
 	/* 最先执行的地方 */
 	@Mod.EventHandler
 	public void preLoad(FMLPreInitializationEvent 事件) {
-		/*进行方块的初始化*/
+		/* 进行方块的初始化 */
 		JiuZhouTutorialBlocks.init();
 	}
 
 	/* 之后执行的地方 */
 	@Mod.EventHandler
 	public void load(FMLInitializationEvent 事件) {
-
+		/* 这里注册GUI,一定不要放在最先执行的地方,因为先加载了东西才能加载视图是吧! */
+		NetworkRegistry.INSTANCE.registerGuiHandler(实例, new GuiHandler());
 	}
 
 	/* 最后执行的地方 */

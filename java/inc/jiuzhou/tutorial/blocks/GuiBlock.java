@@ -1,8 +1,12 @@
 package inc.jiuzhou.tutorial.blocks;
 
+import inc.jiuzhou.tutorial.JiuzhouTutorial;
+import inc.jiuzhou.tutorial.BlockTileEntiies.GuiBlockTileEntity;
+import inc.jiuzhou.tutorial.Gui.GuiHandler;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
@@ -28,7 +32,22 @@ public class GuiBlock extends BlockContainer {
 	@Override
 	/**绑定所对应的TileEntity**/
 	public TileEntity createNewTileEntity(World 世界, int 变量) {
-		return null;
+		/** 返回咱写好的TileEntity **/
+		return new GuiBlockTileEntity();
+	}
+
+	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer entityPlayer, int par1, float par2, float par3, float par4) {
+		// 这个isRemote我也不知道是什么鬼,不用管这个
+		if (world.isRemote) {
+			return true;
+		}
+		// 这个是判断如果玩家是蹲着就取消
+		if (entityPlayer.isSneaking()) {
+			return true;
+		}
+		// 这里就是打开GUI了quq
+		entityPlayer.openGui(JiuzhouTutorial.实例, GuiHandler.GuiBlockGui, world, x, y, z);
+		return true;
 	}
 
 }

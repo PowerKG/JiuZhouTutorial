@@ -9,7 +9,7 @@ import net.minecraft.tileentity.TileEntity;
 public class GuiBlockTileEntity extends TileEntity implements IInventory {
 	/* 这个是容器内的现有的所有物品,[数字]所对应的物品为自己设置的 */
 	private ItemStack[] inventory;
-	/*设置总共能装下多少物品*/
+	/* 设置总共能装下多少物品 */
 	private int INVENTORY_SIZE;
 
 	// 下面都是乱七八糟的它自己补充的方法,现在可以先复制其他的进来

@@ -8,7 +8,7 @@ public class JiuZhouTutorialBlocks {
 	public static final GuiBlock GuiBlock = new GuiBlock(Material.rock);
 
 	public static void init() {
-		/*注册方块,到实战开发后我会提供好快捷注册库*/
+		/* 注册方块,到实战开发后我会提供好快捷注册库 */
 		GameRegistry.registerBlock(GuiBlock, GuiBlock.getUnlocalizedName());
 	}
 }
