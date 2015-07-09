@@ -7,23 +7,26 @@ import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
 import net.minecraft.util.ResourceLocation;
 
-/** GUI»æÖÆµÄµØ·½ **/
+/** GUIç»˜åˆ¶çš„åœ°æ–¹ **/
 public class GuiGuiBlock extends GuiContainer {
-	/* °ó¶¨ĞèÒª»æÖÆµÄÌùÍ¼ */
+	/* ç»‘å®šéœ€è¦ç»˜åˆ¶çš„è´´å›¾ */
 	private static final ResourceLocation backgroundimage = new ResourceLocation("JiuZhouTutorial:" + "textures/gui/GuiBlock.png");
 	private GuiBlockTileEntity tile;
 
-	/* ·Ö±ğ´«ÈëÁ½¸öÈİÆ÷ÊµÀı×Ó,È»ºóÔÙÓÃÕâÁ½¸öÈİÆ÷´´½¨Ò»¸öĞÂµÄµÄContainerGuiBlock(GuiBlockµÄTileEntityÈİÆ÷)ÊµÀı */
-	public GuiGuiBlock(GuiBlockTileEntity GuiBlockµÄTileEntityÈİÆ÷, InventoryPlayer Íæ¼ÒµÄ±³°üÈİÆ÷, int ¿í, int ¸ß) {
-		super(new ContainerGuiBlock(GuiBlockµÄTileEntityÈİÆ÷, Íæ¼ÒµÄ±³°üÈİÆ÷));
-		/* »ñÈ¡µ½GuiBlockµÄTEÈİÆ÷£¬Ö®ºóÓÃÀ´ÅĞ¶ÏÊÇ²»ÊÇÓĞÎïÆ·É¶µÄÀ´»æÖÆGUI */
-		tile = GuiBlockµÄTileEntityÈİÆ÷;
-		// ÉèÖÃÌùÍ¼µÄ¿íºÍ¸ßÒÔ±ãÓÚ»æÖÆ
-		this.xSize = ¿í;
-		this.ySize = ¸ß;
+	/* åˆ†åˆ«ä¼ å…¥ä¸¤ä¸ªå®¹å™¨å®ä¾‹å­,ç„¶åå†ç”¨è¿™ä¸¤ä¸ªå®¹å™¨åˆ›å»ºä¸€ä¸ªæ–°çš„çš„ContainerGuiBlock(GuiBlockçš„TileEntityå®¹å™¨)å®ä¾‹ */
+	public GuiGuiBlock(GuiBlockTileEntity GuiBlockçš„TileEntityå®¹å™¨, InventoryPlayer ç©å®¶çš„èƒŒåŒ…å®¹å™¨, int å®½, int é«˜) {
+		super(new ContainerGuiBlock(GuiBlockçš„TileEntityå®¹å™¨, ç©å®¶çš„èƒŒåŒ…å®¹å™¨));
+		/* è·å–åˆ°GuiBlockçš„TEå®¹å™¨ï¼Œä¹‹åç”¨æ¥åˆ¤æ–­æ˜¯ä¸æ˜¯æœ‰ç‰©å“å•¥çš„æ¥ç»˜åˆ¶GUI */
+		tile = GuiBlockçš„TileEntityå®¹å™¨;
+		// è®¾ç½®è´´å›¾çš„å®½å’Œé«˜ä»¥ä¾¿äºç»˜åˆ¶
+		this.xSize = å®½;
+		this.ySize = é«˜;
 	}
-
-	/* »æÖÆ±³¾°ÌùÍ¼ */
+	/** ç»˜åˆ¶å‰æ™¯,è¿™é‡Œå¤šä¼šç»˜åˆ¶æ–‡å­—*/
+	@Override
+	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY){}
+	
+	/** ç»˜åˆ¶èƒŒæ™¯è´´å›¾ */
 	@Override
 	protected void drawGuiContainerBackgroundLayer(float f, int var1, int var2) {
 		this.mc.getTextureManager().bindTexture(backgroundimage);
