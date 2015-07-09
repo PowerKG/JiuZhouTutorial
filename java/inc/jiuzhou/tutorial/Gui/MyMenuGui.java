@@ -46,21 +46,22 @@ import net.minecraft.world.demo.DemoWorldServer;
 import net.minecraft.world.storage.ISaveFormat;
 import net.minecraft.world.storage.WorldInfo;
 import net.minecraftforge.client.ForgeHooksClient;
-/**一个自定义的主页GuiScreen**/
+
+/** 一个自定义的主页GuiScreen **/
 public class MyMenuGui extends GuiScreen implements GuiYesNoCallback {
 	private static final Logger logger = LogManager.getLogger();
-	/** The RNG used by the Main Menu Screen. */
+	/** 主页GUI使用RNG */
 	private static final Random rand = new Random();
-	/** Counts the number of screen updates. */
+	/** 将屏幕更新的数量记下来 */
 	private float updateCounter;
-	/** The splash message. */
+	/** 炫酷飞溅标语(就是那个闪闪的东西) */
 	private String splashText;
+	/* 测试按钮 */
 	private GuiButton buttonResetDemo;
-	/** Timer used to rotate the panorama, increases every tick. */
+	/** 每TICK增加的变量,用于旋转全景的计时器 */
 	private int panoramaTimer;
 	/**
-	 * Texture allocated for the current viewport of the main menu's panorama
-	 * background.
+	 * 分配动态纹理 背景
 	 */
 	private DynamicTexture viewportTexture;
 	private final Object field_104025_t = new Object();
@@ -70,7 +71,7 @@ public class MyMenuGui extends GuiScreen implements GuiYesNoCallback {
 	private static final ResourceLocation splashTexts = new ResourceLocation("texts/splashes.txt");
 	private static final ResourceLocation minecraftTitleTextures = new ResourceLocation("textures/gui/title/minecraft.png");
 	private static final ResourceLocation backgroundimage = new ResourceLocation("JiuZhouTutorial:" + "textures/logo.png");
-	/** An array of all the paths to the panorama pictures. */
+	/** 旋转全景的全部图片的路径 */
 	private static final ResourceLocation[] titlePanoramaPaths = new ResourceLocation[] { new ResourceLocation("textures/gui/title/background/panorama_0.png"), new ResourceLocation("textures/gui/title/background/panorama_1.png"), new ResourceLocation("textures/gui/title/background/panorama_2.png"),
 			new ResourceLocation("textures/gui/title/background/panorama_3.png"), new ResourceLocation("textures/gui/title/background/panorama_4.png"), new ResourceLocation("textures/gui/title/background/panorama_5.png") };
 	public static final String field_96138_a = "Please click " + EnumChatFormatting.UNDERLINE + "here" + EnumChatFormatting.RESET + " for more information.";
@@ -129,15 +130,16 @@ public class MyMenuGui extends GuiScreen implements GuiYesNoCallback {
 	}
 
 	/**
-	 * Called from the main game loop to update the screen.
+	 * 从主线程循环更新游戏
 	 */
 	public void updateScreen() {
 		++this.panoramaTimer;
 	}
 
 	/**
-	 * Returns true if this GUI should pause the game when it is displayed in
-	 * single-player
+	 * 当界面为暂停游戏时返回true.
+	 * 
+	 * 单人游戏
 	 */
 	public boolean doesGuiPauseGame() {
 		return false;
@@ -151,7 +153,7 @@ public class MyMenuGui extends GuiScreen implements GuiYesNoCallback {
 	}
 
 	/**
-	 * Adds the buttons (and other controls) to the screen in question.
+	 * 在屏幕上添加按钮(和其他的东西)
 	 */
 	public void initGui() {
 		/* 动态纹理 */
@@ -159,7 +161,7 @@ public class MyMenuGui extends GuiScreen implements GuiYesNoCallback {
 		this.field_110351_G = this.mc.getTextureManager().getDynamicTextureLocation("background", this.viewportTexture);
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(new Date());
-
+		/* 飞溅标语 */
 		if (calendar.get(2) + 1 == 11 && calendar.get(5) == 9) {
 			this.splashText = "Happy birthday, ez!";
 		} else if (calendar.get(2) + 1 == 6 && calendar.get(5) == 1) {
@@ -177,13 +179,14 @@ public class MyMenuGui extends GuiScreen implements GuiYesNoCallback {
 		boolean flag = true;
 		int i = this.height / 4 + 48;
 
-		/** 测试模式 **/
+		/* 测试模式 */
 		if (this.mc.isDemo()) {
 			this.addDemoButtons(i, 24);
 		} else {
 			this.addSingleplayerMultiplayerButtons(i, 24);
 		}
 
+		/* 添加按钮 */
 		this.buttonList.add(new GuiButton(0, this.width / 2 - 100, i + 72 + 12, 98, 20, I18n.format("menu.options", new Object[0])));
 		this.buttonList.add(new GuiButton(4, this.width / 2 + 2, i + 72 + 12, 98, 20, I18n.format("menu.quit", new Object[0])));
 		this.buttonList.add(new GuiButtonLanguage(5, this.width / 2 - 124, i + 72 + 12));
@@ -201,8 +204,7 @@ public class MyMenuGui extends GuiScreen implements GuiYesNoCallback {
 	}
 
 	/**
-	 * Adds Singleplayer and Multiplayer buttons on Main Menu for players who
-	 * have bought the game.
+	 * 添加单人游戏多人游戏和一些按钮
 	 */
 	private void addSingleplayerMultiplayerButtons(int p_73969_1_, int p_73969_2_) {
 		this.buttonList.add(new GuiButton(1, this.width / 2 - 100, p_73969_1_, I18n.format("menu.singleplayer", new Object[0])));
@@ -217,7 +219,7 @@ public class MyMenuGui extends GuiScreen implements GuiYesNoCallback {
 	}
 
 	/**
-	 * Adds Demo buttons on Main Menu for players who are playing Demo.
+	 * 当为测试模式时添加的测试按钮(测试模式是大坑)
 	 */
 	private void addDemoButtons(int p_73972_1_, int p_73972_2_) {
 		this.buttonList.add(new GuiButton(11, this.width / 2 - 100, p_73972_1_, I18n.format("menu.playdemo", new Object[0])));
@@ -229,7 +231,9 @@ public class MyMenuGui extends GuiScreen implements GuiYesNoCallback {
 			this.buttonResetDemo.enabled = false;
 		}
 	}
-
+	/**
+	 * 当某个按钮被点击(作用)时
+	 * */
 	protected void actionPerformed(GuiButton p_146284_1_) {
 		if (p_146284_1_.id == 0) {
 			this.mc.displayGuiScreen(new GuiOptions(this, this.mc.gameSettings));
@@ -273,12 +277,13 @@ public class MyMenuGui extends GuiScreen implements GuiYesNoCallback {
 			}
 		}
 	}
-
+	/** SUCKS FUNC! **/
 	private void func_140005_i() {
 		RealmsBridge realmsbridge = new RealmsBridge();
 		realmsbridge.switchToRealms(this);
 	}
-
+	
+	/**点击确认?**/
 	public void confirmClicked(boolean p_73878_1_, int p_73878_2_) {
 		if (p_73878_1_ && p_73878_2_ == 12) {
 			ISaveFormat isaveformat = this.mc.getSaveLoader();
@@ -301,7 +306,7 @@ public class MyMenuGui extends GuiScreen implements GuiYesNoCallback {
 	}
 
 	/**
-	 * Draws the main menu panorama
+	 * 绘制GUI的全景
 	 */
 	private void drawPanorama(int p_73970_1_, int p_73970_2_, float p_73970_3_) {
 		Tessellator tessellator = Tessellator.instance;
@@ -382,7 +387,7 @@ public class MyMenuGui extends GuiScreen implements GuiYesNoCallback {
 	}
 
 	/**
-	 * Rotate and blurs the skybox view in the main menu
+	 *	旋转蓝天白云
 	 */
 	private void rotateAndBlurSkybox(float p_73968_1_) {
 		this.mc.getTextureManager().bindTexture(this.field_110351_G);
@@ -414,7 +419,7 @@ public class MyMenuGui extends GuiScreen implements GuiYesNoCallback {
 	}
 
 	/**
-	 * Renders the skybox in the main menu
+	 * 渲染全景的天空
 	 */
 	private void renderSkybox(int p_73971_1_, int p_73971_2_, float p_73971_3_) {
 		this.mc.getFramebuffer().unbindFramebuffer();
@@ -445,7 +450,7 @@ public class MyMenuGui extends GuiScreen implements GuiYesNoCallback {
 	}
 
 	/**
-	 * Draws the screen and all the components in it.
+	 * 绘制屏幕和全部模块(组件).
 	 */
 	public void drawScreen(int p_73863_1_, int p_73863_2_, float p_73863_3_) {
 		GL11.glDisable(GL11.GL_ALPHA_TEST);
@@ -488,8 +493,6 @@ public class MyMenuGui extends GuiScreen implements GuiYesNoCallback {
 		String ver = "Minecraft 1.7.10  &  Forge";
 		this.drawString(this.fontRendererObj, ver, 2, this.height - (10 + 0 * (this.fontRendererObj.FONT_HEIGHT + 1)), 16777215);
 		this.drawString(this.fontRendererObj, "【九州之月】团队制作", 2, this.height - (10 + 1 * (this.fontRendererObj.FONT_HEIGHT + 1)), 16777215);
-		// // ForgeHooksClient.renderMainMenu(this, fontRendererObj,
-		// width,height);
 		String s1 = "Copyright Mojang AB. Do not distribute!";
 		this.drawString(this.fontRendererObj, s1, this.width - this.fontRendererObj.getStringWidth(s1) - 2, this.height - 10, -1);
 
@@ -504,7 +507,7 @@ public class MyMenuGui extends GuiScreen implements GuiYesNoCallback {
 	}
 
 	/**
-	 * Called when the mouse is clicked.
+	 * 当鼠标点击时
 	 */
 	protected void mouseClicked(int p_73864_1_, int p_73864_2_, int p_73864_3_) {
 		super.mouseClicked(p_73864_1_, p_73864_2_, p_73864_3_);
