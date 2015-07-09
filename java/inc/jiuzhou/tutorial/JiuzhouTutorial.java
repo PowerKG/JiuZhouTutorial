@@ -9,35 +9,37 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 
-/** ´Ë´¦ÎªÖ÷ÒªÈë¿ÚµÄµØ·½ **/
+/** æ­¤å¤„ä¸ºä¸»è¦å…¥å£çš„åœ°æ–¹ **/
 
-/* Ê¹ÓÃ@ModÉùÃ÷ÕâÊÇÒ»¸öÃÈÃÈµÄMOD */
+/* ä½¿ç”¨@Modå£°æ˜è¿™æ˜¯ä¸€ä¸ªèŒèŒçš„MOD */
 @Mod(modid = "JiuZhouTutorial", name = "JiuZhou Tutorial", version = "quq")
 public class JiuzhouTutorial {
-	// Õâ¸öÎÒÒ²²»ÖªµÀÓĞÉ¶ÓÃ,Ó¦¸ÃÊÇ´úÀí·şÎñÆ÷Ö®¼ä´«ÊäÊı¾İÉ¶µÄ,Í¦ÖØÒª,µ«ÊÇ²»ĞèÒªÏêÏ¸ÁË½â
+	/** è¿™ä¸ªæˆ‘ä¹Ÿä¸çŸ¥é“æœ‰å•¥ç”¨,åº”è¯¥æ˜¯ä»£ç†æœåŠ¡å™¨ä¹‹é—´ä¼ è¾“æ•°æ®å•¥çš„,æŒºé‡è¦,ä½†æ˜¯ä¸éœ€è¦è¯¦ç»†äº†è§£
+	 *  æ˜è¡¥å……:è¿™æ˜¯å®šä¹‰ä»£ç†çš„,clientSide å’Œ serverSide å¿…é¡»è‡ªå·±è¾“å…¥,ä¸”å¿…é¡»æ­£ç¡®
+	 */
 	@SidedProxy(clientSide = "inc.jiuzhou.tutorial.ClientProxy", serverSide = "inc.jiuzhou.tutorial.CommonProxy")
-	public static CommonProxy ´úÀí;
+	public static CommonProxy ä»£ç†;
+	// åˆ›å»ºä¸€ä¸ªMODå®ä¾‹
 	@Mod.Instance
-	// ´´½¨Ò»¸öMODÊµÀı
-	public static JiuzhouTutorial ÊµÀı;
+	public static JiuzhouTutorial å®ä¾‹;
 
-	/* ×îÏÈÖ´ĞĞµÄµØ·½ */
+	/* æœ€å…ˆæ‰§è¡Œçš„åœ°æ–¹ */
 	@Mod.EventHandler
-	public void preLoad(FMLPreInitializationEvent ÊÂ¼ş) {
-		/* ½øĞĞ·½¿éµÄ³õÊ¼»¯ */
+	public void preLoad(FMLPreInitializationEvent äº‹ä»¶) {
+		/* è¿›è¡Œæ–¹å—çš„åˆå§‹åŒ– */
 		JiuZhouTutorialBlocks.init();
 	}
 
-	/* Ö®ºóÖ´ĞĞµÄµØ·½ */
+	/* ä¹‹åæ‰§è¡Œçš„åœ°æ–¹ */
 	@Mod.EventHandler
-	public void load(FMLInitializationEvent ÊÂ¼ş) {
-		/* ÕâÀï×¢²áGUI,Ò»¶¨²»Òª·ÅÔÚ×îÏÈÖ´ĞĞµÄµØ·½,ÒòÎªÏÈ¼ÓÔØÁË¶«Î÷²ÅÄÜ¼ÓÔØÊÓÍ¼ÊÇ°É! */
-		NetworkRegistry.INSTANCE.registerGuiHandler(ÊµÀı, new GuiHandler());
+	public void load(FMLInitializationEvent äº‹ä»¶) {
+		/* è¿™é‡Œæ³¨å†ŒGUI,ä¸€å®šä¸è¦æ”¾åœ¨æœ€å…ˆæ‰§è¡Œçš„åœ°æ–¹,å› ä¸ºå…ˆåŠ è½½äº†ä¸œè¥¿æ‰èƒ½åŠ è½½è§†å›¾æ˜¯å§! */
+		NetworkRegistry.INSTANCE.registerGuiHandler(å®ä¾‹, new GuiHandler());
 	}
 
-	/* ×îºóÖ´ĞĞµÄµØ·½ */
+	/* æœ€åæ‰§è¡Œçš„åœ°æ–¹ */
 	@Mod.EventHandler
-	public void PostLoad(FMLPostInitializationEvent ÊÂ¼ş) {
+	public void PostLoad(FMLPostInitializationEvent äº‹ä»¶) {
 
 	}
 
