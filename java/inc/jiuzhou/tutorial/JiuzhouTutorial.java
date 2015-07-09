@@ -1,4 +1,4 @@
-package inc.jiuzhou.tutorial;
+﻿package inc.jiuzhou.tutorial;
 
 import inc.jiuzhou.tutorial.Gui.GuiHandler;
 import inc.jiuzhou.tutorial.blocks.JiuZhouTutorialBlocks;
@@ -14,7 +14,6 @@ import cpw.mods.fml.common.network.NetworkRegistry;
 /* 使用@Mod声明这是一个萌萌的MOD */
 @Mod(modid = "JiuZhouTutorial", name = "JiuZhou Tutorial", version = "quq")
 public class JiuzhouTutorial {
-	/** 这个我也不知道有啥用,应该是代理服务器之间传输数据啥的,挺重要,但是不需要详细了解
 	 *  明补充:这是定义代理的,clientSide 和 serverSide 必须自己输入,且必须正确
 	 */
 	@SidedProxy(clientSide = "inc.jiuzhou.tutorial.ClientProxy", serverSide = "inc.jiuzhou.tutorial.CommonProxy")

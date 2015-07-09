@@ -1,4 +1,4 @@
-package inc.jiuzhou.tutorial.blocks;
+﻿package inc.jiuzhou.tutorial.blocks;
 
 import inc.jiuzhou.tutorial.JiuzhouTutorial;
 import inc.jiuzhou.tutorial.BlockTileEntiies.GuiBlockTileEntity;
@@ -12,6 +12,7 @@ import net.minecraft.world.World;
 
 /** 这是一个带有Gui的方块,因为可以放置东西合成什么的,所以这是一个继承于BlockContainer(方块容器)的类  **/
 public class GuiBlock extends BlockContainer {
+        //材质的设定
 	IIcon top = null, bottom = null, side1 = null, side2 = null, side3 = null, side4 = null;
 	public GuiBlock(Material 材质) {
 		/* 设置这个方块的材质(可以自定义材质: 是否可以被覆盖,燃烧,透过光线啥的),为了方便阅读，这个材质将会在注册的类里统一赋上相应的材质 */
@@ -46,7 +47,6 @@ public class GuiBlock extends BlockContainer {
 	}
 
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer entityPlayer, int par1, float par2, float par3, float par4) {
-		// 这个isRemote我也不知道是什么鬼,不用管这个
 		// 明补充:world.isRemote 從字面看就是「是否远程」,MC的核心不竟还是服务器,所以这个Remote就是客戶端
 		if (world.isRemote) {
 			return true;
@@ -59,11 +59,12 @@ public class GuiBlock extends BlockContainer {
 		entityPlayer.openGui(JiuzhouTutorial.实例, GuiHandler.GuiBlockGui, world, x, y, z);
 		return true;
 	}
+        /**以下内容为补充,暂可省略**/
 	/**
 	* 材质面获得方法(1.8同样不适用)
 	* 为什么这里要特別写呢,大槪因为本来的方法只返回1个值,所以我们要特別复盖方法
-	* @param face 方塊面
-	* @param meta 方塊数据值
+	* @param face 方块面
+	* @param meta 方块数据值
 	* @return Icon
 	*/
 	@SideOnly(Side.CLIENT)
