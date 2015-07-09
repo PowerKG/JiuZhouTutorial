@@ -10,44 +10,95 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
-/** ÕâÊÇÒ»¸ö´øÓĞGuiµÄ·½¿é,ÒòÎª¿ÉÒÔ·ÅÖÃ¶«Î÷ºÏ³ÉÊ²Ã´µÄ,ËùÒÔÕâÊÇÒ»¸ö¼Ì³ĞÓÚBlockContainer(·½¿éÈİÆ÷)µÄÀà  **/
+/** è¿™æ˜¯ä¸€ä¸ªå¸¦æœ‰Guiçš„æ–¹å—,å› ä¸ºå¯ä»¥æ”¾ç½®ä¸œè¥¿åˆæˆä»€ä¹ˆçš„,æ‰€ä»¥è¿™æ˜¯ä¸€ä¸ªç»§æ‰¿äºBlockContainer(æ–¹å—å®¹å™¨)çš„ç±»  **/
 public class GuiBlock extends BlockContainer {
-
-	public GuiBlock(Material ²ÄÖÊ) {
-		/* ÉèÖÃÕâ¸ö·½¿éµÄ²ÄÖÊ(¿ÉÒÔ×Ô¶¨Òå²ÄÖÊ: ÊÇ·ñ¿ÉÒÔ±»¸²¸Ç,È¼ÉÕ,Í¸¹ı¹âÏßÉ¶µÄ),ÎªÁË·½±ãÔÄ¶Á£¬Õâ¸ö²ÄÖÊ½«»áÔÚ×¢²áµÄÀàÀïÍ³Ò»¸³ÉÏÏàÓ¦µÄ²ÄÖÊ */
-		super(²ÄÖÊ);
-		/** ÉèÖÃÕâ¸ö·½¿éµÄÄÚ²¿Ãû×Ö **/
+	IIcon top = null, bottom = null, side1 = null, side2 = null, side3 = null, side4 = null;
+	public GuiBlock(Material æè´¨) {
+		/* è®¾ç½®è¿™ä¸ªæ–¹å—çš„æè´¨(å¯ä»¥è‡ªå®šä¹‰æè´¨: æ˜¯å¦å¯ä»¥è¢«è¦†ç›–,ç‡ƒçƒ§,é€è¿‡å…‰çº¿å•¥çš„),ä¸ºäº†æ–¹ä¾¿é˜…è¯»ï¼Œè¿™ä¸ªæè´¨å°†ä¼šåœ¨æ³¨å†Œçš„ç±»é‡Œç»Ÿä¸€èµ‹ä¸Šç›¸åº”çš„æè´¨ */
+		super(æè´¨);
+		/** è®¾ç½®è¿™ä¸ªæ–¹å—çš„å†…éƒ¨åå­— **/
 		this.setBlockName("GuiBlock");
-		/* ÉèÖÃËùÔÚµÄ´´ÔìÀ¸µÄÎ»ÖÃ,ÕâÀïÉèÖÃµÄÊÇtabBlock(·½¿éÀà) */
+		/**
+		 * 1.7ç‰ˆæœ¬ä¸­setUnlocalizedNameè¢«æ”¹ä¸ºsetBlockNameäº†,é1.7ç‰ˆæœ¬è¯·ç”¨è¿™ä¸ª
+		*/
+		//this.setUnlocalizedName("GuiBlock");
+		/**
+		*ç®€æ˜“è®¾ç½®æè´¨æ–¹æ³•(1.8ä¸é€‚ç”¨)
+		*/
+		//this.setBlockTextureName("GuiBlock");
+		
+		/* è®¾ç½®æ‰€åœ¨çš„åˆ›é€ æ çš„ä½ç½®,è¿™é‡Œè®¾ç½®çš„æ˜¯tabBlock(æ–¹å—ç±») */
 		this.setCreativeTab(CreativeTabs.tabBlock);
 		/*
 		 * this.setHardness(flot);
 		 * 
 		 * this.setLightLevel(flot);
 		 * 
-		 * ÕâĞ©ÉèÖÃ¿ÉÒÔÍ¬ÑùµÄ×Ô¼º½øĞĞÀ©Õ¹,¾ßÌå¹¦ÄÜ¿ÉÒÔ°ÑÊó±êÒÆµ½ÉÏÃæÔÚÓÒ±ßµÄ½éÉÜÀï¿´
+		 * è¿™äº›è®¾ç½®å¯ä»¥åŒæ ·çš„è‡ªå·±è¿›è¡Œæ‰©å±•,å…·ä½“åŠŸèƒ½å¯ä»¥æŠŠé¼ æ ‡ç§»åˆ°ä¸Šé¢åœ¨å³è¾¹çš„ä»‹ç»é‡Œçœ‹
 		 */
 	}
 
 	@Override
-	/**°ó¶¨Ëù¶ÔÓ¦µÄTileEntity**/
-	public TileEntity createNewTileEntity(World ÊÀ½ç, int ±äÁ¿) {
-		/** ·µ»ØÔÛĞ´ºÃµÄTileEntity **/
+	/**ç»‘å®šæ‰€å¯¹åº”çš„TileEntity**/
+	public TileEntity createNewTileEntity(World ä¸–ç•Œ, int å˜é‡) {
+		/** è¿”å›å’±å†™å¥½çš„TileEntity **/
 		return new GuiBlockTileEntity();
 	}
 
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer entityPlayer, int par1, float par2, float par3, float par4) {
-		// Õâ¸öisRemoteÎÒÒ²²»ÖªµÀÊÇÊ²Ã´¹í,²»ÓÃ¹ÜÕâ¸ö
+		// è¿™ä¸ªisRemoteæˆ‘ä¹Ÿä¸çŸ¥é“æ˜¯ä»€ä¹ˆé¬¼,ä¸ç”¨ç®¡è¿™ä¸ª
+		// æ˜è¡¥å……:world.isRemote å¾å­—é¢çœ‹å°±æ˜¯ã€Œæ˜¯å¦è¿œç¨‹ã€,MCçš„æ ¸å¿ƒä¸ç«Ÿè¿˜æ˜¯æœåŠ¡å™¨,æ‰€ä»¥è¿™ä¸ªRemoteå°±æ˜¯å®¢æˆ¶ç«¯
 		if (world.isRemote) {
 			return true;
 		}
-		// Õâ¸öÊÇÅĞ¶ÏÈç¹ûÍæ¼ÒÊÇ¶××Å¾ÍÈ¡Ïû
+		// è¿™ä¸ªæ˜¯åˆ¤æ–­å¦‚æœç©å®¶æ˜¯è¹²ç€å°±å–æ¶ˆ
 		if (entityPlayer.isSneaking()) {
 			return true;
 		}
-		// ÕâÀï¾ÍÊÇ´ò¿ªGUIÁËquq
-		entityPlayer.openGui(JiuzhouTutorial.ÊµÀı, GuiHandler.GuiBlockGui, world, x, y, z);
+		// è¿™é‡Œå°±æ˜¯æ‰“å¼€GUIäº†quq
+		entityPlayer.openGui(JiuzhouTutorial.å®ä¾‹, GuiHandler.GuiBlockGui, world, x, y, z);
 		return true;
 	}
-
+	/**
+	* æè´¨é¢è·å¾—æ–¹æ³•(1.8åŒæ ·ä¸é€‚ç”¨)
+	* ä¸ºä»€ä¹ˆè¿™é‡Œè¦ç‰¹åˆ¥å†™å‘¢,å¤§æ§ªå› ä¸ºæœ¬æ¥çš„æ–¹æ³•åªè¿”å›1ä¸ªå€¼,æ‰€ä»¥æˆ‘ä»¬è¦ç‰¹åˆ¥å¤ç›–æ–¹æ³•
+	* @param face æ–¹å¡Šé¢
+	* @param meta æ–¹å¡Šæ•°æ®å€¼
+	* @return Icon
+	*/
+	@SideOnly(Side.CLIENT)
+	@Override
+	public IIcon getIcon(int face, int meta){
+		switch(face){
+			case 0:
+				return top;
+			case 1:
+				return bottom;
+			case 2:
+				return side1;
+			case 3:
+				return side2;
+			case 4:
+				return side3;
+			case 5:
+				return side4;
+			default:
+				return top;
+		}
+	}
+	/**
+	* å¤šæè´¨è®¾ç½®æ–¹æ³•(1.8åŒæ ·ä¸é€‚ç”¨)
+	* ä¸ºä»€ä¹ˆè¿™é‡Œè¦ç‰¹åˆ¥å†™å‘¢,å¤§æ§ªå› ä¸ºæœ¬æ¥çš„æ–¹æ³•åªä¼šæ³¨å†Œä¸€ä¸ªé¢,æ‰€ä»¥æˆ‘ä»¬è¦ç‰¹åˆ¥å¤ç›–æ–¹æ³•
+	* @param reg æ³¨å†Œå™¨(ä¸ç”¨ç†ä¼š)
+	*/
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void registerBlockIcons(IIconRegister reg){
+		this.top = reg.registerIcon("GuiBlock");
+		this.bottom = reg.registerIcon("GuiBlock");
+		this.side1 = reg.registerIcon("GuiBlock");
+		this.side2 = reg.registerIcon("GuiBlock");
+		this.side3 = reg.registerIcon("GuiBlock");
+		this.side4 = reg.registerIcon("GuiBlock");
+	}
 }
