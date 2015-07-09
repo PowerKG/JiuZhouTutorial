@@ -1,45 +1,49 @@
-ï»¿package inc.jiuzhou.tutorial;
+package inc.jiuzhou.tutorial;
 
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.GuiMainMenu;
+import net.minecraftforge.client.event.GuiOpenEvent;
+import net.minecraftforge.client.event.GuiScreenEvent.InitGuiEvent;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.network.ForgeNetworkHandler;
+import inc.jiuzhou.tutorial.Blocks.JiuZhouTutorialBlocks;
+import inc.jiuzhou.tutorial.Events.EventHandler;
 import inc.jiuzhou.tutorial.Gui.GuiHandler;
-import inc.jiuzhou.tutorial.blocks.JiuZhouTutorialBlocks;
+import inc.jiuzhou.tutorial.Gui.MyMenuGui;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
+import cpw.mods.fml.common.event.FMLLoadCompleteEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.network.NetworkRegistry;
 
-/** æ­¤å¤„ä¸ºä¸»è¦å…¥å£çš„åœ°æ–¹ **/
+/** ´Ë´¦ÎªÖ÷ÒªÈë¿ÚµÄµØ·½ **/
 
-/* ä½¿ç”¨@Modå£°æ˜è¿™æ˜¯ä¸€ä¸ªèŒèŒçš„MOD */
+/* Ê¹ÓÃ@ModÉùÃ÷ÕâÊÇÒ»¸öÃÈÃÈµÄMOD */
 @Mod(modid = "JiuZhouTutorial", name = "JiuZhou Tutorial", version = "quq")
 public class JiuzhouTutorial {
-	 *  æ˜è¡¥å……:è¿™æ˜¯å®šä¹‰ä»£ç†çš„,clientSide å’Œ serverSide å¿…é¡»è‡ªå·±è¾“å…¥,ä¸”å¿…é¡»æ­£ç¡®
-	 */
+	// Õâ¸öÎÒÒ²²»ÖªµÀÓĞÉ¶ÓÃ,Ó¦¸ÃÊÇ´úÀí·şÎñÆ÷Ö®¼ä´«ÊäÊı¾İÉ¶µÄ,Í¦ÖØÒª,µ«ÊÇ²»ĞèÒªÏêÏ¸ÁË½â
 	@SidedProxy(clientSide = "inc.jiuzhou.tutorial.ClientProxy", serverSide = "inc.jiuzhou.tutorial.CommonProxy")
-	public static CommonProxy ä»£ç†;
-	// åˆ›å»ºä¸€ä¸ªMODå®ä¾‹
+	public static CommonProxy ´úÀí;
 	@Mod.Instance
-	public static JiuzhouTutorial å®ä¾‹;
+	// ´´½¨Ò»¸öMODÊµÀı
+	public static JiuzhouTutorial ÊµÀı;
 
-	/* æœ€å…ˆæ‰§è¡Œçš„åœ°æ–¹ */
+	/* ×îÏÈÖ´ĞĞµÄµØ·½ */
 	@Mod.EventHandler
-	public void preLoad(FMLPreInitializationEvent äº‹ä»¶) {
-		/* è¿›è¡Œæ–¹å—çš„åˆå§‹åŒ– */
+	public void preLoad(FMLPreInitializationEvent ÊÂ¼ş) {
+		/* ×¢²á¼àÌıÆ÷(ƒÈ°üº¬ÁËMainMenuGui) */
+		MinecraftForge.EVENT_BUS.register(EventHandler.ins);
+		/* ½øĞĞ·½¿éµÄ³õÊ¼»¯ */
 		JiuZhouTutorialBlocks.init();
 	}
 
-	/* ä¹‹åæ‰§è¡Œçš„åœ°æ–¹ */
+	/* Ö®ºóÖ´ĞĞµÄµØ·½ */
 	@Mod.EventHandler
-	public void load(FMLInitializationEvent äº‹ä»¶) {
-		/* è¿™é‡Œæ³¨å†ŒGUI,ä¸€å®šä¸è¦æ”¾åœ¨æœ€å…ˆæ‰§è¡Œçš„åœ°æ–¹,å› ä¸ºå…ˆåŠ è½½äº†ä¸œè¥¿æ‰èƒ½åŠ è½½è§†å›¾æ˜¯å§! */
-		NetworkRegistry.INSTANCE.registerGuiHandler(å®ä¾‹, new GuiHandler());
-	}
-
-	/* æœ€åæ‰§è¡Œçš„åœ°æ–¹ */
-	@Mod.EventHandler
-	public void PostLoad(FMLPostInitializationEvent äº‹ä»¶) {
-
+	public void load(FMLInitializationEvent ÊÂ¼ş) {
+		/* ÕâÀï×¢²áGUI,Ò»¶¨²»Òª·ÅÔÚ×îÏÈÖ´ĞĞµÄµØ·½,ÒòÎªÏÈ¼ÓÔØÁË¶«Î÷²ÅÄÜ¼ÓÔØÊÓÍ¼ÊÇ°É! */
+		NetworkRegistry.INSTANCE.registerGuiHandler(ÊµÀı, new GuiHandler());
 	}
 
 }
