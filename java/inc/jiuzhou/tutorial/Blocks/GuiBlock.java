@@ -4,7 +4,7 @@ import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import inc.jiuzhou.tutorial.JiuzhouTutorial;
 import inc.jiuzhou.tutorial.BlockTileEntiies.GuiBlockTileEntity;
-import inc.jiuzhou.tutorial.Gui.GuiHandler;
+import inc.jiuzhou.tutorial.Gui.Blocks.GuiHandler;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.renderer.texture.IIconRegister;
