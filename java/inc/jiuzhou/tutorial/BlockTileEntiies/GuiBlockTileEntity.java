@@ -12,6 +12,13 @@ public class GuiBlockTileEntity extends TileEntity implements IInventory {
 	/* 设置总共能装下多少物品 */
 	private int INVENTORY_SIZE;
 
+	/* 初始化储存的ItemStack的inventory大小 */
+	public GuiBlockTileEntity() {
+		/*这里因为我的Gui只有两个自定义的格子,所以把大小设置为2,也可以直接赋值*/
+		INVENTORY_SIZE = 2;
+		inventory = new ItemStack[INVENTORY_SIZE];
+	}
+
 	// 下面都是乱七八糟的它自己补充的方法,现在可以先复制其他的进来
 	@Override
 	public ItemStack getStackInSlotOnClosing(int slotIndex) {
