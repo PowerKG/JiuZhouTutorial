@@ -44,6 +44,8 @@ public class JiuzhouTutorial {
 	public void load(FMLInitializationEvent 事件) {
 		/* 这里注册GUI,一定不要放在最先执行的地方,因为先加载了东西才能加载视图是吧! */
 		NetworkRegistry.INSTANCE.registerGuiHandler(实例, new GuiHandler());
+		/*注册TileEnity*/
+		代理.RegisterTileEntities();
 	}
 
 }

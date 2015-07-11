@@ -4,6 +4,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTBase;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 
 /* 这里为GuiBlock的TileEntity,继承于TileEntity,因为可以存储放置东西,所以接口为IInventory */
@@ -105,6 +107,69 @@ public class GuiBlockTileEntity extends TileEntity implements IInventory {
 
 	}
 
+	/**
+	 * 以下为NBT的读写
+	 * 
+	 * 需要注意的是,在此之前一定要注册好这个TileEntity,否则会导致读写失败!
+	 * 同时数值什么的也要进行在服务器的同步,否则会导致数值读取不正确,出现各种问题
+	 * */
+	public void writeToNBT(NBTTagCompound nbt) {
+		super.writeToNBT(nbt);
+
+		/** 存储物品槽 **/
+
+		// 遍历inventory[]里的所有物品并且写到NBTTAG里
+		for (int a = 0; a < this.INVENTORY_SIZE; a++) {
+			NBTTagCompound tag = new NBTTagCompound();
+			// 判断是否有物品
+			if (inventory[a] != null) {
+				// 有的话写进去1
+				tag = inventory[a].writeToNBT(tag);
+			}
+			// 没有的话同样也写个null进去以防读取报错
+			nbt.setTag("Inventory." + a, tag);
+		}
+
+		/** 存储进程变量 **/
+		// 分别存储所有变量
+		nbt.setInteger("TileVar.ItemMaxDamage", this.maxDamage);
+		nbt.setInteger("TileVar.ItemBeforeDamage", this.beforeDamage);
+		nbt.setInteger("TileVar.ItemNowDamage", this.nowDamage);
+		return;
+	}
+
+	public void readFromNBT(NBTTagCompound nbt) {
+		super.readFromNBT(nbt);
+		/** 读取物品槽 **/
+
+		// 遍历物品位置
+		for (int a = 0; a < INVENTORY_SIZE; a++) {
+			// 获取那个槽的物品
+			NBTBase tagbase = nbt.getTag("Inventory." + a);
+			// 如果获取到的是NBT标签说明这是个物品
+			if (tagbase instanceof NBTTagCompound) {
+				// 将物品写入指定槽
+				inventory[a] = ItemStack.loadItemStackFromNBT((NBTTagCompound) tagbase);
+			}
+			continue;
+		}
+		/** 读取储存的参数 **/
+
+		this.maxDamage = nbt.getInteger("TileVar.ItemMaxDamage");
+		this.beforeDamage = nbt.getInteger("TileVar.ItemBeforeDamage");
+		this.nowDamage = nbt.getInteger("TileVar.ItemNowDamage");
+		return;
+	}
+
+	/* 用于判断是不是正在修复武器中 */
+	public boolean isRepairing() {
+		if (this.nowDamage != -1 && this.maxDamage != 0) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
 	// 下面都是乱七八糟的它自己补充的方法,现在可以先复制其他的进来
 	@Override
 	public ItemStack getStackInSlotOnClosing(int slotIndex) {
@@ -186,11 +251,4 @@ public class GuiBlockTileEntity extends TileEntity implements IInventory {
 		return INVENTORY_SIZE;
 	}
 
-	public boolean isRepairing() {
-		if (this.nowDamage != -1 && this.maxDamage != 0) {
-			return true;
-		} else {
-			return false;
-		}
-	}
 }
