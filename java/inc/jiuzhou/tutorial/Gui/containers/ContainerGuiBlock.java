@@ -36,7 +36,13 @@ public class ContainerGuiBlock extends Container {
 	private void bindTileEntitySlot() {
 		// 参数(1)为绑定到的容器,参数(2)为槽的ID,参数(3)为X轴坐标,参数(4)为Y轴坐标
 		addSlotToContainer(new Slot(tile, 0, 48, 21));
-		addSlotToContainer(new Slot(tile, 1, 112, 21));
+		addSlotToContainer(new Slot(tile, 1, 112, 21) {
+			@Override
+			/*设置该槽不能放任何东西*/
+			public boolean isItemValid(ItemStack p_75214_1_) {
+				return false;
+			}
+		});
 	}
 
 	/* 将玩家的背包的槽绑定到GUI上 */
