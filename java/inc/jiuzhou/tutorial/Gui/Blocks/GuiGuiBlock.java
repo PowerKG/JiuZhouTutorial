@@ -29,6 +29,9 @@ public class GuiGuiBlock extends GuiContainer {
 	/** 绘制前景,这里多会绘制文字 */
 	@Override
 	protected void drawGuiContainerForegroundLayer(int mouseX, int mouseY) {
+		// 绘制文字
+		this.fontRendererObj.drawString("修复机", 7, 4, 4210752);
+
 	}
 
 	/** 绘制背景贴图 */
@@ -46,11 +49,8 @@ public class GuiGuiBlock extends GuiContainer {
 			float all = tile.maxDamage - tile.beforeDamage, now = tile.nowDamage - tile.beforeDamage;
 			float percent = now / all;
 			// 如果为百分比为负数就不画
-			if (percent < 0) {
-			} else {
+			if (percent >= 0)
 				drawTexturedModalRect(var1 + 76, var2 + 20, 176, 0, (int) ((float) this.barWidth * percent), this.barHeight);
-
-			}
 		}
 		return;
 	}

@@ -17,24 +17,27 @@ import net.minecraft.world.World;
 /** 这是一个带有Gui的方块,因为可以放置东西合成什么的,所以这是一个继承于BlockContainer(方块容器)的类 **/
 public class GuiBlock extends BlockContainer {
 	// 材质的设定
-	IIcon top = null, bottom = null, side1 = null, side2 = null, side3 = null, side4 = null;
+	IIcon top = null, bottom = null, side = null;
 
 	public GuiBlock(Material 材质) {
 		/* 设置这个方块的材质(可以自定义材质: 是否可以被覆盖,燃烧,透过光线啥的),为了方便阅读，这个材质将会在注册的类里统一赋上相应的材质 */
 		super(材质);
 		/** 设置这个方块的内部名字 **/
 		this.setBlockName("GuiBlock");
+
 		/**
 		 * 1.7版本中setUnlocalizedName被改为setBlockName了,非1.7版本请用这个
+		 * this.setUnlocalizedName("GuiBlock");
 		 */
-		// this.setUnlocalizedName("GuiBlock");
+
 		/**
-		 * 简易设置材质方法(1.8不适用)
+		 * 简易设置材质方法(1.8版本不适用),且设置到的六面贴图都一样 this.setBlockTextureName("GuiBlock");
 		 */
-		// this.setBlockTextureName("GuiBlock");
 
 		/* 设置所在的创造栏的位置,这里设置的是tabBlock(方块类) */
+
 		this.setCreativeTab(CreativeTabs.tabBlock);
+
 		/*
 		 * this.setHardness(flot);
 		 * 
@@ -65,7 +68,15 @@ public class GuiBlock extends BlockContainer {
 		return true;
 	}
 
-	/** 以下内容为补充,暂可省略 **/
+	/**注册相应的贴图**/
+	@SideOnly(Side.CLIENT)
+	@Override
+	public void registerBlockIcons(IIconRegister reg) {
+		this.top = reg.registerIcon("JiuZhouTutorial:guiblock_top");
+		this.bottom = reg.registerIcon("JiuZhouTutorial:guiblock_bottom");
+		this.side = reg.registerIcon("JiuZhouTutorial:guiblock_side");
+	}
+
 	/**
 	 * 材质面获得方法(1.8同样不适用) 为什么这里要特別写呢,大槪因为本来的方法只返回1个值,所以我们要特別复盖方法
 	 * 
@@ -75,41 +86,19 @@ public class GuiBlock extends BlockContainer {
 	 *            方块数据值
 	 * @return Icon
 	 */
+	
+	/** 当读取调用贴图的时候就会get这里，**/
 	@SideOnly(Side.CLIENT)
 	@Override
 	public IIcon getIcon(int face, int meta) {
 		switch (face) {
 		case 0:
-			return top;
-		case 1:
 			return bottom;
-		case 2:
-			return side1;
-		case 3:
-			return side2;
-		case 4:
-			return side3;
-		case 5:
-			return side4;
-		default:
+		case 1:
 			return top;
+		default:
+			return side;
 		}
 	}
 
-	/**
-	 * 多材质设置方法(1.8同样不适用) 为什么这里要特別写呢,大槪因为本来的方法只会注册一个面,所以我们要特別复盖方法
-	 * 
-	 * @param reg
-	 *            注册器(不用理会)
-	 */
-	@SideOnly(Side.CLIENT)
-	@Override
-	public void registerBlockIcons(IIconRegister reg) {
-		this.top = reg.registerIcon("GuiBlock");
-		this.bottom = reg.registerIcon("GuiBlock");
-		this.side1 = reg.registerIcon("GuiBlock");
-		this.side2 = reg.registerIcon("GuiBlock");
-		this.side3 = reg.registerIcon("GuiBlock");
-		this.side4 = reg.registerIcon("GuiBlock");
-	}
 }
